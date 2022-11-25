@@ -1,0 +1,21 @@
+header {
+	position: relative;
+	padding: 3vw;
+	align-items: center;
+	background-color: #2c252b;
+	.wrap-header {
+		font-family: 'Ubuntu Mono', monospace;
+		position: relative;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		.logo {
+			position: absolute;
+			font-size: 2rem;
+			left: 0;
+			a {
+				text-decoration: none;
+			}
+		}
+	}
+}

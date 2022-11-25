@@ -1,0 +1,133 @@
+.project-card {
+	position: relative;
+	width: 100%;
+	min-height: 250px;
+	margin-bottom: 50px;
+	border-radius: 10px;
+	font-size: 18px;
+	.project-card-inner {
+		display: flex;
+		.images {
+			cursor: pointer;
+			img {
+				width: 400px;
+				height: 100%;
+				object-fit: fill;
+				object-position: center;
+			}
+		}
+		.wrap-card-content {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			padding: 20px;
+			.project-card-text {
+				position: relative;
+				font-size: 17px;
+				.project-card-header {
+					display: flex;
+					flex-direction: column;
+					.project-card-title {font-size: 24px;}
+					.project-card-links {
+						a {margin-right: 10px;}
+					}
+				}
+				.project-card-content {
+					margin-top: 20px;
+					margin-bottom: 50px;
+				}
+			}
+			.project-card-actions {
+				display: flex;
+				justify-content: flex-end;
+				a, span {
+					text-decoration: underline;
+					margin-left: 35px;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 990px) {
+	.project-card {
+		height: auto;
+		.project-card-inner {
+			flex-direction: column;
+			.images {
+				img {
+					width: 100%;
+					height: auto;
+					object-fit: cover;
+					object-position: center;
+				}
+			}
+		}
+	}	
+}
+
+@media (max-width: 650px) {
+	.project-card {
+		height: auto;
+		.project-card-inner {
+			flex-direction: column;
+			.wrap-card-content {
+				.project-card-actions {
+					flex-direction: column;
+					justify-content: space-between;
+					align-items: flex-end;
+					a, span {
+						margin-left: 0px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.box{
+	height: 100% !important;
+	div {
+		&:nth-of-type(1) {
+			max-height: 90% !important;
+			height: 90% !important;
+			div {
+				&:nth-of-type(1) {max-height: 100% !important; height: 100% !important;}
+			}
+		}
+	}
+	.prev, .next {
+		color: #c57e8a;
+		text-decoration: none;
+		&:hover {background-color: #ffffff00;}
+	}
+	.carousel-container {
+		.carousel-item {
+			max-height: 100% !important;
+			position: relative;
+			.carousel-image {
+				object-position: top;
+				object-fit: contain !important;
+			}
+			.carousel-caption-bottom {
+				font-size: 1em;
+				font-family: 'Roboto', sans-serif;
+				bottom: -72px;
+				text-shadow: none;
+				height: 2em !important;
+				max-height: 2em !important;
+			}
+		}
+	}
+	.thumbnails {
+		.active-thumbnail {border: 3px solid #c57e8a;}
+	}
+}
+.fade {
+	animation-name: none;
+
+	&:not(.show) {
+		opacity: 1;
+	}
+}

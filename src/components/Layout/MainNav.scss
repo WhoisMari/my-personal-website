@@ -1,0 +1,32 @@
+.wrap-nav {
+	a {
+		position: relative;
+		text-decoration: none;
+		padding: 2px 0;
+		margin-left: 20px;
+		font-size: 23px;
+		word-spacing: -4px;
+		&:before {
+			position: absolute;
+			content: "";
+			width: 0;
+			height: 2px;
+			bottom: -1px;
+			left: 0;
+			transition: 0.3s;
+		}
+		&:hover::before {
+			width: 100%;
+		}
+	}
+}
+
+.wrap-social-medias {
+	a {
+		margin-left: 10px;
+	}
+}
+
+@media (max-width: 992px) {
+	.wrap-nav {display: none !important;}
+}

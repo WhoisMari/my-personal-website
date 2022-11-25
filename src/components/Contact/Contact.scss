@@ -1,0 +1,23 @@
+.wrap-contact {
+	padding: 3vw;
+	.contact-container {
+		width: 50%;
+		.wrap-social {
+			display: flex;
+			a {
+				padding: 6px 12px;
+				border: 1px solid;
+				margin-right: 40px;
+				border-radius: 5px;
+			}
+		}
+	}
+}
+@media (max-width: 1100px) {
+	.wrap-contact {
+		padding: 5vw 3vw;
+		.contact-container {
+			width: 100%;
+		}
+	}
+}
