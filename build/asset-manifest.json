@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5f1734ce.css",
+    "main.js": "/static/js/main.22dcc6a9.js",
+    "static/media/whoismari.jpg": "/static/media/whoismari.00effea49afc8e4567af.jpg",
+    "index.html": "/index.html",
+    "main.5f1734ce.css.map": "/static/css/main.5f1734ce.css.map",
+    "main.22dcc6a9.js.map": "/static/js/main.22dcc6a9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5f1734ce.css",
+    "static/js/main.22dcc6a9.js"
+  ]
+}

@@ -22,7 +22,6 @@ Thumbs.db
 # Node / Frontend
 # ============================================================
 node_modules/
-build/
 coverage/
 .pnp
 .pnp.js
@@ -31,8 +30,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Frontend local config  →  copy from src/config.example.json
-src/config.json
 
 # ============================================================
 # Python / Backend
