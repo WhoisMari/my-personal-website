@@ -1,4 +1,4 @@
 {
   "aws_url": "https://your-bucket.s3.amazonaws.com",
-  "server_url": "http://localhost:8000/api"
+  "server_url": "/api"
 }
