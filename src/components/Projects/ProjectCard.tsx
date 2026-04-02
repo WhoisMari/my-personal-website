@@ -6,6 +6,13 @@ import ProjectGallery from "./ProjectGallery";
 import "./ProjectCard.scss";
 import "swiper/css/pagination";
 
+const serverBase = config.server_url.replace("/api", "");
+function mediaUrl(path: string): string {
+  if (!path) return "";
+  if (path.startsWith("http")) return path.split("?")[0];
+  return `${serverBase}${path.split("?")[0]}`;
+}
+
 interface ProjectCardProps {
   id: number;
   title: string;
@@ -15,7 +22,14 @@ interface ProjectCardProps {
   website: string;
 }
 
-const ProjectCard = ({ id, title, thumb, content, github, website }: ProjectCardProps) => {
+const ProjectCard = ({
+  id,
+  title,
+  thumb,
+  content,
+  github,
+  website,
+}: ProjectCardProps) => {
   const [images, setImages] = useState<ProjectImage[]>([]);
   const [show, setShow] = useState(false);
 
@@ -39,10 +53,7 @@ const ProjectCard = ({ id, title, thumb, content, github, website }: ProjectCard
       <div className="project-card">
         <div className="project-card-inner">
           <div className="images" onClick={() => setShow(true)}>
-            <img
-              src={thumb.substring(0, thumb.indexOf("?"))}
-              alt={title}
-            />
+            <img src={mediaUrl(thumb)} alt={title} />
           </div>
           <div className="wrap-card-content">
             <div className="project-card-text">
@@ -57,14 +68,14 @@ const ProjectCard = ({ id, title, thumb, content, github, website }: ProjectCard
                 <ReactMarkdown>{content}</ReactMarkdown>
               </div>
             </div>
-            <div className="project-card-actions" onClick={() => setShow(true)}>
+            <div className="project-card-actions">
               <a href={github} target="_blank" rel="noreferrer">
                 <i className="fa-brands fa-github"></i> Github
               </a>
               <a href={website} target="_blank" rel="noreferrer">
                 <i className="fa-solid fa-window-maximize"></i> Go to project
               </a>
-              <span>
+              <span onClick={() => setShow(true)}>
                 <i className="fa-solid fa-images"></i> Project Gallery
               </span>
             </div>

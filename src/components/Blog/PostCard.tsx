@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import Moment from "moment";
 import ReactMarkdown from "react-markdown";
+import config from "../../config.json";
 import "./PostCard.scss";
+
+const serverBase = config.server_url.replace("/api", "");
+function mediaUrl(path: string | null | undefined): string {
+  if (!path) return "";
+  if (path.startsWith("http")) return path.split("?")[0];
+  return `${serverBase}${path.split("?")[0]}`;
+}
 
 interface PostCardProps {
   slug: string;
@@ -18,10 +26,7 @@ const PostCard = ({ slug, title, thumbnail, date, intro }: PostCardProps) => (
     <Link to={`/blog/${slug}/`}>
       <div className="post-card-inner">
         <div className="post-card-image">
-          <img
-            src={thumbnail.substring(0, thumbnail.indexOf("?"))}
-            alt={title}
-          />
+          <img src={mediaUrl(thumbnail)} alt={title} />
         </div>
         <div className="post-card-text">
           <div className="post-card-title">{title}</div>

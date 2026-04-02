@@ -5,6 +5,7 @@ import { GlobalStyles } from "./components/UI/GlobalStyles";
 import { lightTheme, darkTheme } from "./components/UI/Themes";
 import Toggler from "./components/UI/Toggler";
 import router from "./router";
+import { AuthProvider } from "./context/AuthContext";
 
 type Theme = "light" | "dark";
 
@@ -14,15 +15,17 @@ function App() {
     setTheme((current) => (current === "light" ? "dark" : "light"));
 
   return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-      <>
-        <GlobalStyles />
-        <div className="App">
-          <Toggler theme={theme} toggleTheme={themeToggler} />
-          <RouterProvider router={router} />
-        </div>
-      </>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <>
+          <GlobalStyles />
+          <div className="App">
+            <Toggler theme={theme} toggleTheme={themeToggler} />
+            <RouterProvider router={router} />
+          </div>
+        </>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

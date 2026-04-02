@@ -12,12 +12,27 @@ class PostSerializer(serializers.ModelSerializer):
 		model = Post
 		fields = ('__all__')
 
+class PostWriteSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Post
+		fields = ('__all__')
+
 class CertificateSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Certificate
 		fields = ('__all__')
 
+class CertificateWriteSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Certificate
+		fields = ('__all__')
+
 class ProjectSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Project
+		fields = ('__all__')
+
+class ProjectWriteSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Project
 		fields = ('__all__')
