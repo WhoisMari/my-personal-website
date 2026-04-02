@@ -3,6 +3,7 @@ from .serializers import PostSerializer, ProjectImageSerializer, ProjectSerializ
 from rest_framework.views import APIView
 from rest_framework.parsers import FormParser, JSONParser
 from rest_framework.response import Response
+from rest_framework import status
 # Create your views here.
 
 
@@ -31,14 +32,20 @@ class CertificateView(APIView):
 class AboutView(APIView):
 	parser_classes = (JSONParser, FormParser)
 	def get(self, request, *args, **kwargs):
-		about = Post.objects.get(title='About Me')
+		try:
+			about = Post.objects.get(title='About Me')
+		except Post.DoesNotExist:
+			return Response({}, status=status.HTTP_404_NOT_FOUND)
 		serializer = PostSerializer(about)
 		return Response(serializer.data)
 
 class MySkillsView(APIView):
 	parser_classes = (JSONParser, FormParser)
 	def get(self, request, *args, **kwargs):
-		skills = Post.objects.get(title='My Skills')
+		try:
+			skills = Post.objects.get(title='My Skills')
+		except Post.DoesNotExist:
+			return Response({}, status=status.HTTP_404_NOT_FOUND)
 		serializer = PostSerializer(skills)
 		return Response(serializer.data)
 

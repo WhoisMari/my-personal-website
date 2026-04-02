@@ -1,0 +1,52 @@
+.wrap-error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  width: 100%;
+
+  .error-svg {
+    margin-bottom: 20px;
+    width: 100%;
+    .fragment {
+      animation: float 3s ease-in-out infinite;
+    }
+    .fragment-1 { animation-delay: 0s; }
+    .fragment-2 { animation-delay: 0.5s; }
+    .fragment-3 { animation-delay: 1s; }
+    .fragment-4 { animation-delay: 1.5s; }
+
+    .dot {
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .dot-1 { animation-delay: 0s; }
+    .dot-2 { animation-delay: 0.4s; }
+    .dot-3 { animation-delay: 0.8s; }
+    .dot-4 { animation-delay: 1.2s; }
+    .dot-5 { animation-delay: 1.6s; }
+  }
+
+  .error-title {
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: #b4134c;
+    margin: 0 0 8px 0;
+  }
+
+  .error-message {
+    font-size: 16px;
+    color: #adacac;
+    margin: 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
+  50%       { transform: translateY(-5px) rotate(var(--r, 0deg)); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50%       { opacity: 0.7;  transform: scale(1.25); }
+}

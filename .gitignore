@@ -1,36 +1,59 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
+# ============================================================
+# OS
+# ============================================================
 .DS_Store
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-config.json
-Procfile
-Runtime.txt
-staticfiles/
+Thumbs.db
+*.swp
+*.swo
 
-# Django 
-*.log
-*.pot
-*.pyc
-__pycache__
+# ============================================================
+# IDE / Editor
+# ============================================================
+.vscode/
+.idea/
+*.code-workspace
 
-# Visual Studio Code # 
-.vscode/* 
+# ============================================================
+# Claude Code
+# ============================================================
+.claude/
 
+# ============================================================
+# Node / Frontend
+# ============================================================
+node_modules/
+build/
+coverage/
+.pnp
+.pnp.js
+.npm/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Frontend local config  →  copy from src/config.example.json
+src/config.json
+
+# ============================================================
+# Python / Backend
+# ============================================================
+venv/
+.Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pot
+*.log
+
+# Django local config  →  copy from backend/.env.example
+backend/.env
+db.sqlite3
+staticfiles/
+media/
+
+# ============================================================
+# Testing
+# ============================================================
+.pytest_cache/
+.coverage
+htmlcov/
