@@ -3,7 +3,7 @@ import Container from "react-bootstrap/esm/Container";
 import { Link } from "react-router-dom";
 import "animate.css";
 import "../styles.scss";
-import { images } from "../../assets/Images/index";
+import config from "../../config.json";
 
 const Home = () => {
   return (
@@ -22,7 +22,7 @@ const Home = () => {
                 </p>
               </div>
             </div>
-            <img src={images.WhoisMari} alt="Mari" />
+            <img src={`${config.aws_url}whoismari.JPG`} alt="Mari" />
           </div>
         </Container>
       </div>
