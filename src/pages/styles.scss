@@ -44,52 +44,98 @@
 
 .wrap-skills {
   padding: 3vw;
-  ul {
-    margin: 0 20px 0 0 !important;
-    text-align: left !important;
-    padding: 0;
-    li {
-      list-style: none !important;
-      em {
-        display: block;
-        margin-bottom: 15px;
-      }
-      div {
-        margin-bottom: 35px;
-        background: #ecebeb;
-        height: 5px;
-        overflow: hidden;
-        span {
-          height: 42px;
-          width: 50%;
-          display: block;
-        }
-      }
+
+  .skills-tags {
+    padding-top: 4px;
+  }
+
+  .skill-group {
+    margin-bottom: 18px;
+
+    &--muted .skill-group-label {
+      opacity: 0.4;
     }
   }
-  li.markup div span {
-    background: #b4134c;
-    width: 70%;
+
+  .skill-group-label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.45;
+    margin-bottom: 8px;
   }
-  li.frontend div span {
-    background: #e95186;
-    width: 55%;
+
+  .skill-group-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
   }
-  li.backend div span {
-    background: #f3a4c0;
-    width: 55%;
+
+  .skill-tag {
+    position: relative;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: default;
+
+    &--default {
+      background: rgba(128, 128, 128, 0.15);
+    }
+
+    &--highlight {
+      background: rgba(180, 19, 76, 0.12);
+      color: #b4134c;
+    }
+
+    &--fun {
+      background: rgba(50, 160, 100, 0.13);
+      color: #237a50;
+    }
+
+    &[data-tooltip]::before,
+    &[data-tooltip]::after {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+    }
+
+    &[data-tooltip]::before {
+      content: attr(data-tooltip);
+      bottom: calc(100% + 8px);
+      background: #1a1a1a;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.73rem;
+      white-space: nowrap;
+    }
+
+    &[data-tooltip]::after {
+      content: '';
+      bottom: calc(100% + 2px);
+      border: 5px solid transparent;
+      border-top-color: #1a1a1a;
+    }
+
+    &[data-tooltip]:hover::before,
+    &[data-tooltip]:hover::after {
+      opacity: 1;
+    }
   }
-  li.deployment div span {
-    background: #b4134c;
-    width: 45%;
-  }
-  li.sql div span {
-    background: #e95186;
-    width: 66%;
-  }
-  li.other div span {
-    background: #f3a4c0;
-    width: 100%;
+}
+
+@media (hover: none) {
+  .wrap-skills .skill-tag[data-tooltip]::before,
+  .wrap-skills .skill-tag[data-tooltip]::after {
+    display: none;
   }
 }
 

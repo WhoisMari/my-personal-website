@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import Loader from "../../components/UI/Loader";
 import ErrorState from "../../components/UI/ErrorState";
 import useSkills from "./hooks/useSkills";
+import { SKILL_GROUPS } from "./utils/constants";
 import "../styles.scss";
 
 const Skills = () => {
@@ -16,51 +17,29 @@ const Skills = () => {
       <Container>
         <h1>My Skills</h1>
         <div className="row">
-          <div className="col-md-6 col-12">
+          <div className="col-md-6 col-12 skills-bio">
             {skillsPost && <ReactMarkdown>{skillsPost.content}</ReactMarkdown>}
           </div>
-          <div className="col-md-6 col-12">
-            <ul>
-              <li className="markup">
-                <em>Markup: HTML5/SASS/Bootstrap/Markdown</em>
-                <div>
-                  <span className="animation fadeInLeft"></span>
+          <div className="col-md-6 col-12 skills-tags">
+            {SKILL_GROUPS.map((group) => (
+              <div
+                key={group.label}
+                className={`skill-group${group.muted ? " skill-group--muted" : ""}`}
+              >
+                <span className="skill-group-label">{group.label}</span>
+                <div className="skill-group-tags">
+                  {group.tags.map((t) => (
+                    <span
+                      key={t.label}
+                      className={`skill-tag skill-tag--${t.variant}`}
+                      data-tooltip={t.tooltip}
+                    >
+                      {t.label}
+                    </span>
+                  ))}
                 </div>
-              </li>
-              <li className="frontend">
-                <em>Frontend: JavaScript (ES6/ReactJS/Next.js/)</em>
-                <div>
-                  <span className="animation fadeInLeft"></span>
-                </div>
-              </li>
-              <li className="backend">
-                <em>Backend: Python (Django/Django REST/Flask)</em>
-                <div>
-                  <span className="animation fadeInLeft"></span>
-                </div>
-              </li>
-              <li className="deployment">
-                <em>Deployment: Git/Heroku/AWS/Railway/Vercel/Azure</em>
-                <div>
-                  <span className="animation fadeInLeft"></span>
-                </div>
-              </li>
-              <li className="sql">
-                <em>SQL: PostgreSQL/SQLite</em>
-                <div>
-                  <span className="animation fadeInLeft"></span>
-                </div>
-              </li>
-              <li className="other">
-                <em>
-                  Other Skills: Self Hair Dying/Pickled
-                  Onions/Karaoke/Guitar/Drawing/Baking
-                </em>
-                <div>
-                  <span className="animation fadeInLeft"></span>
-                </div>
-              </li>
-            </ul>
+              </div>
+            ))}
           </div>
         </div>
       </Container>

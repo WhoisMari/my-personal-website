@@ -18,3 +18,17 @@ export interface Certificate {
   description: string;
   timestamp: string;
 }
+
+export type TagVariant = "highlight" | "fun" | "default";
+
+export interface SkillTag {
+  label: string;
+  tooltip: string;
+  variant: TagVariant;
+}
+
+export interface SkillGroup {
+  label: string;
+  tags: SkillTag[];
+  muted?: boolean;
+}
