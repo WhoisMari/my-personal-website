@@ -1,7 +1,6 @@
 .post-card {
 	width: 100%;
-	min-height: 250px;
-	max-height: 300px;
+	height: 250px;
 	margin-bottom: 50px;
 	border-radius: 10px;
 	font-size: 18px;
@@ -10,7 +9,9 @@
 	a {text-decoration: none;}
 	.post-card-inner {
 		display: flex;
+		height: 100%;
 		.post-card-image {
+			flex-shrink: 0;
 			img {
 				width: 400px;
 				height: 100%;
