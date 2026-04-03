@@ -107,6 +107,8 @@ AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME', default='')
 AWS_S3_ENDPOINT_URL = env('AWS_S3_ENDPOINT_URL', default='')
 AWS_URL = env('AWS_URL', default='')
 AWS_DEFAULT_ACL = None
+AWS_S3_REGION_NAME = 'auto'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
 
 if AWS_STORAGE_BUCKET_NAME:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
