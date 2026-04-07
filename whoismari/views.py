@@ -1,8 +1,8 @@
-from .models import Post, Project, ProjectImage, Certificate, Tag
+from .models import Post, Project, ProjectImage, Certificate, Tag, AboutFact
 from .serializers import (
     PostSerializer, ProjectImageSerializer, ProjectSerializer,
     CertificateSerializer, PostWriteSerializer, ProjectWriteSerializer,
-    CertificateWriteSerializer, TagSerializer,
+    CertificateWriteSerializer, TagSerializer, AboutFactSerializer,
 )
 from rest_framework.views import APIView
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
@@ -257,6 +257,53 @@ class AdminProjectImageListView(APIView):
         image.image = request.data['image']
         image.save()
         return Response(ProjectImageSerializer(image).data, status=status.HTTP_201_CREATED)
+
+
+class AboutFactView(APIView):
+    parser_classes = (JSONParser, FormParser)
+
+    def get(self, request, *args, **kwargs):
+        facts = AboutFact.objects.all()
+        return Response(AboutFactSerializer(facts, many=True).data)
+
+
+class AdminAboutFactListView(APIView):
+    permission_classes = [IsAdminUser]
+    parser_classes = (JSONParser, FormParser)
+
+    def get(self, request):
+        return Response(AboutFactSerializer(AboutFact.objects.all(), many=True).data)
+
+    def post(self, request):
+        serializer = AboutFactSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AdminAboutFactDetailView(APIView):
+    permission_classes = [IsAdminUser]
+    parser_classes = (JSONParser, FormParser)
+
+    def put(self, request, pk):
+        try:
+            fact = AboutFact.objects.get(pk=pk)
+        except AboutFact.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = AboutFactSerializer(fact, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        try:
+            fact = AboutFact.objects.get(pk=pk)
+        except AboutFact.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        fact.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class AdminProjectImageDetailView(APIView):

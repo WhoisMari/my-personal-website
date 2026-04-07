@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Project, ProjectImage, Tag, Certificate
+from .models import Post, Project, ProjectImage, Tag, Certificate, AboutFact
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -100,3 +100,9 @@ class ProjectImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectImage
         fields = ('id', 'image', 'project', 'caption')
+
+
+class AboutFactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutFact
+        fields = ('__all__')

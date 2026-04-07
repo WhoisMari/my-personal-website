@@ -10,3 +10,9 @@ export interface AboutPost {
   timestamp: string;
   tags: Tag[];
 }
+
+export interface AboutFact {
+  id: number;
+  title: string;
+  content: string;
+}

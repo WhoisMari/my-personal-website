@@ -54,3 +54,13 @@ class ProjectImage(models.Model):
 	image = models.FileField(upload_to="projects/")
 	caption = models.TextField(blank=True)
 	project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='images')
+
+class AboutFact(models.Model):
+	title = models.CharField(max_length=120)
+	content = models.TextField()
+
+	class Meta:
+		ordering = ['id']
+
+	def __str__(self):
+		return self.title

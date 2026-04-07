@@ -9,6 +9,7 @@ urlpatterns = [
     path('images/<str:project_id>/', views.ProjectImagesView.as_view()),
     path('blog/', views.BlogView.as_view()),
     path('about/', views.AboutView.as_view()),
+    path('about-facts/', views.AboutFactView.as_view()),
     path('my-skills/', views.MySkillsView.as_view()),
     path('blog/<str:slug>/', views.PostView.as_view()),
 
@@ -26,4 +27,6 @@ urlpatterns = [
     path('admin/certificates/<int:pk>/', views.AdminCertificateDetailView.as_view()),
     path('admin/projects/<int:project_id>/images/', views.AdminProjectImageListView.as_view()),
     path('admin/project-images/<int:pk>/', views.AdminProjectImageDetailView.as_view()),
+    path('admin/about-facts/', views.AdminAboutFactListView.as_view()),
+    path('admin/about-facts/<int:pk>/', views.AdminAboutFactDetailView.as_view()),
 ]

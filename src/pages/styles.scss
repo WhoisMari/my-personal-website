@@ -42,6 +42,63 @@
   }
 }
 
+.about-page-layout {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+  padding: 3vw 0 2vw;
+
+  .about-page-photo {
+    flex-shrink: 0;
+
+    img {
+      width: 300px;
+      height: 380px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 12px;
+      display: block;
+    }
+  }
+
+  .about-page-text {
+    flex: 1;
+  }
+}
+
+.about-facts {
+  padding: 2vw 0 3vw;
+
+  h2 {
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+
+  .about-facts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .about-fact-card {
+    padding: 20px;
+    border-radius: 10px;
+
+    .fact-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+
+    .fact-content {
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+  }
+}
+
 .wrap-skills {
   padding: 3vw;
 
@@ -211,6 +268,22 @@ h4 {
       }
     }
   }
+  .about-page-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: 5vw 0 2vw;
+
+    .about-page-photo img {
+      width: 220px;
+      height: 280px;
+    }
+  }
+  .about-facts {
+    .about-facts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
   .wrap-projects {
     padding: 5vw 3vw;
 
@@ -225,6 +298,14 @@ h4 {
     padding: 5vw 3vw;
     .post-container {
       padding: 20px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .about-facts {
+    .about-facts-grid {
+      grid-template-columns: 1fr;
     }
   }
 }
