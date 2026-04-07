@@ -35,10 +35,18 @@ export const GlobalStyles = createGlobalStyle`
     .wrap-projects {
       .project-card {
         background-color: ${({ theme }) => theme.bg1};
-        border: 2px solid ${({ theme }) => theme.bg1};
-        box-shadow: 1px 3px 10px -4px ${({ theme }) => theme.box_shadow};
+        box-shadow: 0 2px 10px -2px ${({ theme }) => theme.box_shadow};
+        &:hover {
+          box-shadow: 0 14px 36px -4px ${({ theme }) => theme.box_shadow};
+        }
         .project-card-actions {
-          a, span { color: ${({ theme }) => theme.color1}; }
+          a, span {
+            color: ${({ theme }) => theme.text};
+            &:hover {
+              color: ${({ theme }) => theme.color1};
+              background: rgba(180, 19, 76, 0.1);
+            }
+          }
         }
       }
     }

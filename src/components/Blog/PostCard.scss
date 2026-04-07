@@ -6,7 +6,11 @@
 	font-size: 18px;
 	overflow: hidden;
 	cursor: pointer;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
 	a {text-decoration: none;}
+	&:hover {
+		transform: translateY(-4px);
+	}
 	.post-card-inner {
 		display: flex;
 		height: 100%;

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import config from "../../config.json";
-import { ProjectImage } from "../../pages/projects/utils/types";
+import { ProjectImage, ProjectTag } from "../../pages/projects/utils/types";
 import ProjectGallery from "./ProjectGallery";
 import "./ProjectCard.scss";
 import "swiper/css/pagination";
@@ -20,6 +20,8 @@ interface ProjectCardProps {
   content: string;
   github: string;
   website: string;
+  stackTags: ProjectTag[];
+  projectTags: ProjectTag[];
 }
 
 const ProjectCard = ({
@@ -29,6 +31,8 @@ const ProjectCard = ({
   content,
   github,
   website,
+  stackTags,
+  projectTags,
 }: ProjectCardProps) => {
   const [images, setImages] = useState<ProjectImage[]>([]);
   const [show, setShow] = useState(false);
@@ -51,34 +55,40 @@ const ProjectCard = ({
   return (
     <>
       <div className="project-card">
-        <div className="project-card-inner">
-          <div className="images" onClick={() => setShow(true)}>
-            <img src={mediaUrl(thumb)} alt={title} />
+        <div className="project-card-poster" onClick={() => setShow(true)}>
+          <img src={mediaUrl(thumb)} alt={title} />
+          <div className="project-card-overlay">
+            {projectTags.length > 0 && (
+              <div className="project-card-genre-tags">
+                {projectTags.map((t) => (
+                  <span key={t.id} className="project-genre-tag">{t.title}</span>
+                ))}
+              </div>
+            )}
+            <h3 className="project-card-title">{title}</h3>
           </div>
-          <div className="wrap-card-content">
-            <div className="project-card-text">
-              <div className="project-card-header">
-                <div className="project-card-title">
-                  <a href={github} target="_blank" rel="noreferrer">
-                    {title}
-                  </a>
-                </div>
-              </div>
-              <div className="project-card-content">
-                <ReactMarkdown>{content}</ReactMarkdown>
-              </div>
+        </div>
+        <div className="project-card-body">
+          <div className="project-card-content">
+            <ReactMarkdown>{content}</ReactMarkdown>
+          </div>
+          {stackTags.length > 0 && (
+            <div className="project-card-stack">
+              {stackTags.map((t) => (
+                <span key={t.id} className="project-stack-tag">{t.title}</span>
+              ))}
             </div>
-            <div className="project-card-actions">
-              <a href={github} target="_blank" rel="noreferrer">
-                <i className="fa-brands fa-github"></i> Github
-              </a>
-              <a href={website} target="_blank" rel="noreferrer">
-                <i className="fa-solid fa-window-maximize"></i> Go to project
-              </a>
-              <span onClick={() => setShow(true)}>
-                <i className="fa-solid fa-images"></i> Project Gallery
-              </span>
-            </div>
+          )}
+          <div className="project-card-actions">
+            <a href={github} target="_blank" rel="noreferrer">
+              <i className="fa-brands fa-github" /> GitHub
+            </a>
+            <a href={website} target="_blank" rel="noreferrer">
+              <i className="fa-solid fa-arrow-up-right-from-square" /> Live demo
+            </a>
+            <span onClick={() => setShow(true)}>
+              <i className="fa-solid fa-images" /> Gallery
+            </span>
           </div>
         </div>
       </div>

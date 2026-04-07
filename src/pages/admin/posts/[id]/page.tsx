@@ -5,6 +5,7 @@ import {
   PrimaryBtn, GhostBtn, ErrorMsg, SuccessMsg, ActionRow,
 } from "../../../../components/Admin/AdminStyles";
 import MarkdownEditor from "../../../../components/Admin/MarkdownEditor";
+import TagInput from "../../../../components/Admin/TagInput";
 import { useAdminFetch } from "../../../../hooks/useAdminFetch";
 
 interface PostForm {
@@ -12,9 +13,10 @@ interface PostForm {
   slug: string;
   intro: string;
   content: string;
+  tags: string[];
 }
 
-const empty: PostForm = { title: "", slug: "", intro: "", content: "" };
+const empty: PostForm = { title: "", slug: "", intro: "", content: "", tags: [] };
 
 export default function AdminPostEditorPage() {
   const { id } = useParams<{ id: string }>();
@@ -32,11 +34,17 @@ export default function AdminPostEditorPage() {
     if (isNew) return;
     adminFetch(`admin/posts/${id}/`)
       .then((r) => r.json())
-      .then((data) => setForm({ title: data.title, slug: data.slug, intro: data.intro, content: data.content }))
+      .then((data) => setForm({
+        title: data.title,
+        slug: data.slug,
+        intro: data.intro,
+        content: data.content,
+        tags: (data.tags ?? []).map((t: { title: string }) => t.title),
+      }))
       .catch(() => setError("Failed to load post"));
   }, [id, isNew, adminFetch]);
 
-  function setField(key: keyof PostForm) {
+  function setField(key: keyof Omit<PostForm, "tags">) {
     return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((f) => ({ ...f, [key]: e.target.value }));
   }
@@ -57,8 +65,17 @@ export default function AdminPostEditorPage() {
     setSuccess(false);
 
     const body = new FormData();
-    Object.entries(form).forEach(([k, v]) => body.append(k, v));
+    body.append("title", form.title);
+    body.append("slug", form.slug);
+    body.append("intro", form.intro);
+    body.append("content", form.content);
     if (thumbnail) body.append("thumbnail", thumbnail);
+
+    if (form.tags.length > 0) {
+      form.tags.forEach((t) => body.append("tags", t));
+    } else {
+      body.append("tags", "");
+    }
 
     const url = isNew ? "admin/posts/" : `admin/posts/${id}/`;
     const method = isNew ? "POST" : "PUT";
@@ -99,6 +116,14 @@ export default function AdminPostEditorPage() {
             <Field>
               <Label htmlFor="intro">Intro / Excerpt</Label>
               <Textarea id="intro" value={form.intro} onChange={setField("intro")} rows={3} />
+            </Field>
+            <Field>
+              <Label>Tags</Label>
+              <TagInput
+                value={form.tags}
+                onChange={(tags) => setForm((f) => ({ ...f, tags }))}
+                placeholder="Add tag, press Enter…"
+              />
             </Field>
             <Field>
               <Label>Thumbnail</Label>

@@ -1,106 +1,131 @@
 .project-card {
-	position: relative;
-	width: 100%;
-	min-height: 250px;
-	margin-bottom: 50px;
-	border-radius: 10px;
-	font-size: 18px;
-	.project-card-inner {
-		display: flex;
-		.images {
-			cursor: pointer;
-			img {
-				width: 400px;
-				height: 100%;
-				object-fit: fill;
-				object-position: center;
-			}
+	border-radius: 12px;
+	overflow: hidden;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+	&:hover {
+		transform: translateY(-5px);
+
+		.project-card-poster img {
+			transform: scale(1.05);
 		}
-		.wrap-card-content {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			padding: 20px;
-			.project-card-text {
-				position: relative;
-				font-size: 17px;
-				.project-card-header {
-					display: flex;
-					flex-direction: column;
-					.project-card-title {font-size: 24px;}
-					.project-card-links {
-						a {margin-right: 10px;}
-					}
-				}
-				.project-card-content {
-					margin-top: 20px;
-					margin-bottom: 50px;
-				}
-			}
-			.project-card-actions {
+	}
+
+	.project-card-poster {
+		position: relative;
+		aspect-ratio: 16 / 10;
+		overflow: hidden;
+		cursor: pointer;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+			display: block;
+			transition: transform 0.4s ease;
+		}
+
+		.project-card-overlay {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			padding: 52px 20px 18px;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, transparent 100%);
+
+			.project-card-genre-tags {
 				display: flex;
-				justify-content: flex-end;
-				a, span {
-					text-decoration: underline;
-					margin-left: 35px;
-					cursor: pointer;
-				}
+				flex-wrap: wrap;
+				gap: 5px;
+				margin-bottom: 8px;
+			}
+
+			.project-genre-tag {
+				padding: 2px 9px;
+				border-radius: 20px;
+				font-size: 0.72rem;
+				font-weight: 500;
+				background: rgba(255, 255, 255, 0.18);
+				color: #fff;
+				backdrop-filter: blur(4px);
+			}
+
+			.project-card-title {
+				color: #fff;
+				font-size: 1.15rem;
+				font-weight: 500;
+				margin: 0;
+				font-family: 'Ubuntu Mono', monospace;
+			}
+		}
+	}
+
+	.project-card-body {
+		padding: 16px 20px 20px;
+
+		.project-card-content {
+			font-size: 0.88rem;
+			opacity: 0.75;
+			margin-bottom: 16px;
+			p { margin: 0; }
+		}
+
+		.project-card-stack {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 5px;
+			margin-bottom: 12px;
+
+			.project-stack-tag {
+				padding: 2px 9px;
+				border-radius: 20px;
+				font-size: 0.73rem;
+				font-weight: 500;
+				background: rgba(128, 128, 128, 0.15);
+			}
+		}
+
+		.project-card-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+
+			a, span {
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+				padding: 5px 13px;
+				border-radius: 20px;
+				font-size: 0.8rem;
+				font-weight: 500;
+				text-decoration: none !important;
+				cursor: pointer;
+				background: rgba(128, 128, 128, 0.15);
+				transition: background 0.15s, color 0.15s;
+
+				i { font-size: 0.78rem; }
 			}
 		}
 	}
 }
 
-@media (max-width: 990px) {
-	.project-card {
-		height: auto;
-		.project-card-inner {
-			flex-direction: column;
-			.images {
-				img {
-					width: 100%;
-					height: auto;
-					object-fit: cover;
-					object-position: center;
-				}
-			}
-		}
-	}	
-}
-
-@media (max-width: 650px) {
-	.project-card {
-		height: auto;
-		.project-card-inner {
-			flex-direction: column;
-			.wrap-card-content {
-				.project-card-actions {
-					flex-direction: column;
-					justify-content: space-between;
-					align-items: flex-end;
-					a, span {
-						margin-left: 0px;
-					}
-				}
-			}
-		}
-	}
-}
-
-.box{
+// Gallery modal styles
+.box {
 	height: 100% !important;
 	div {
 		&:nth-of-type(1) {
 			max-height: 90% !important;
 			height: 90% !important;
 			div {
-				&:nth-of-type(1) {max-height: 100% !important; height: 100% !important;}
+				&:nth-of-type(1) { max-height: 100% !important; height: 100% !important; }
 			}
 		}
 	}
 	.prev, .next {
 		color: #c57e8a;
 		text-decoration: none;
-		&:hover {background-color: #ffffff00;}
+		&:hover { background-color: #ffffff00; }
 	}
 	.carousel-container {
 		.carousel-item {
@@ -121,13 +146,11 @@
 		}
 	}
 	.thumbnails {
-		.active-thumbnail {border: 3px solid #c57e8a;}
+		.active-thumbnail { border: 3px solid #c57e8a; }
 	}
 }
+
 .fade {
 	animation-name: none;
-
-	&:not(.show) {
-		opacity: 1;
-	}
+	&:not(.show) { opacity: 1; }
 }

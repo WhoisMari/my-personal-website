@@ -14,6 +14,7 @@ const Projects = () => {
     <div className="wrap-projects">
       <Container>
         <h1>Projects</h1>
+        <div className="projects-grid">
         {(projects ?? []).map((project) => (
           <ProjectCard
             key={project.id}
@@ -23,8 +24,11 @@ const Projects = () => {
             website={project.link}
             github={project.github}
             id={project.id}
+            stackTags={project.stack_tags ?? []}
+            projectTags={project.project_tags ?? []}
           />
         ))}
+        </div>
       </Container>
     </div>
   );

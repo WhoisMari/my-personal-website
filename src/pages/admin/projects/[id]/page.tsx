@@ -6,6 +6,7 @@ import {
   PrimaryBtn, GhostBtn, DangerBtn, ErrorMsg, SuccessMsg, ActionRow,
 } from "../../../../components/Admin/AdminStyles";
 import MarkdownEditor from "../../../../components/Admin/MarkdownEditor";
+import TagInput from "../../../../components/Admin/TagInput";
 import { useAdminFetch } from "../../../../hooks/useAdminFetch";
 import config from "../../../../config.json";
 
@@ -83,6 +84,8 @@ interface ProjectForm {
   content: string;
   github: string;
   link: string;
+  stack_tags: string[];
+  project_tags: string[];
 }
 
 interface GalleryImage {
@@ -91,7 +94,7 @@ interface GalleryImage {
   caption: string;
 }
 
-const empty: ProjectForm = { title: "", content: "", github: "", link: "" };
+const empty: ProjectForm = { title: "", content: "", github: "", link: "", stack_tags: [], project_tags: [] };
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
@@ -115,7 +118,14 @@ export default function AdminProjectEditorPage() {
     if (isNew) return;
     adminFetch(`admin/projects/${id}/`)
       .then((r) => r.json())
-      .then((data) => setForm({ title: data.title, content: data.content, github: data.github, link: data.link }))
+      .then((data) => setForm({
+        title: data.title,
+        content: data.content,
+        github: data.github,
+        link: data.link,
+        stack_tags: (data.stack_tags ?? []).map((t: { title: string }) => t.title),
+        project_tags: (data.project_tags ?? []).map((t: { title: string }) => t.title),
+      }))
       .catch(() => setError("Failed to load project"));
 
     adminFetch(`admin/projects/${id}/images/`)
@@ -124,7 +134,7 @@ export default function AdminProjectEditorPage() {
       .catch(() => {});
   }, [id, isNew, adminFetch]);
 
-  function setField(key: keyof ProjectForm) {
+  function setField(key: keyof Pick<ProjectForm, "title" | "github" | "link">) {
     return (e: React.ChangeEvent<HTMLInputElement>) =>
       setForm((f) => ({ ...f, [key]: e.target.value }));
   }
@@ -136,8 +146,23 @@ export default function AdminProjectEditorPage() {
     setSuccess(false);
 
     const body = new FormData();
-    Object.entries(form).forEach(([k, v]) => body.append(k, v));
+    body.append("title", form.title);
+    body.append("github", form.github);
+    body.append("link", form.link);
+    body.append("content", form.content);
     if (thumbnail) body.append("thumbnail", thumbnail);
+
+    // Tags: always append (empty string signals clear)
+    if (form.stack_tags.length > 0) {
+      form.stack_tags.forEach((t) => body.append("stack_tags", t));
+    } else {
+      body.append("stack_tags", "");
+    }
+    if (form.project_tags.length > 0) {
+      form.project_tags.forEach((t) => body.append("project_tags", t));
+    } else {
+      body.append("project_tags", "");
+    }
 
     const url = isNew ? "admin/projects/" : `admin/projects/${id}/`;
     const method = isNew ? "POST" : "PUT";
@@ -179,6 +204,14 @@ export default function AdminProjectEditorPage() {
     setImages((prev) => prev.filter((img) => img.id !== imageId));
   }
 
+  async function handleCaptionBlur(imageId: number, caption: string) {
+    await adminFetch(`admin/project-images/${imageId}/`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ caption }),
+    });
+  }
+
   function imageUrl(path: string) {
     if (path.startsWith("http")) return path;
     return `${config.server_url.replace("/api", "")}${path}`;
@@ -205,6 +238,22 @@ export default function AdminProjectEditorPage() {
             <Field>
               <Label htmlFor="link">Live URL</Label>
               <Input id="link" type="url" value={form.link} onChange={setField("link")} />
+            </Field>
+            <Field>
+              <Label>Stack Tags</Label>
+              <TagInput
+                value={form.stack_tags}
+                onChange={(tags) => setForm((f) => ({ ...f, stack_tags: tags }))}
+                placeholder="React, Django… press Enter"
+              />
+            </Field>
+            <Field>
+              <Label>Project Tags</Label>
+              <TagInput
+                value={form.project_tags}
+                onChange={(tags) => setForm((f) => ({ ...f, project_tags: tags }))}
+                placeholder="Movies, Music… press Enter"
+              />
             </Field>
             <Field>
               <Label>Thumbnail</Label>
@@ -244,6 +293,7 @@ export default function AdminProjectEditorPage() {
                         prev.map((i) => (i.id === img.id ? { ...i, caption: e.target.value } : i))
                       )
                     }
+                    onBlur={(e) => handleCaptionBlur(img.id, e.target.value)}
                   />
                   <DangerBtn
                     style={{ padding: "4px 10px", fontSize: "0.75rem" }}

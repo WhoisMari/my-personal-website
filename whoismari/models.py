@@ -40,6 +40,8 @@ class Project(models.Model):
 	content =  models.TextField()
 	github = models.URLField()
 	link = models.URLField()
+	stack_tags = models.ManyToManyField(Tag, blank=True, related_name='stack_projects')
+	project_tags = models.ManyToManyField(Tag, blank=True, related_name='cat_projects')
 	timestamp = models.DateTimeField(auto_now_add=True)
 
 	class Meta:

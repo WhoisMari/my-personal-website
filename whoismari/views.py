@@ -261,6 +261,17 @@ class AdminProjectImageListView(APIView):
 
 class AdminProjectImageDetailView(APIView):
     permission_classes = [IsAdminUser]
+    parser_classes = (JSONParser, FormParser, MultiPartParser)
+
+    def patch(self, request, pk):
+        try:
+            image = ProjectImage.objects.get(pk=pk)
+        except ProjectImage.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        if 'caption' in request.data:
+            image.caption = request.data['caption']
+            image.save(update_fields=['caption'])
+        return Response(ProjectImageSerializer(image).data)
 
     def delete(self, request, pk):
         try:
