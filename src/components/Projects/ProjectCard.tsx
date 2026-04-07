@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper";
 import config from "../../config.json";
 import { ProjectImage, ProjectTag } from "../../pages/projects/utils/types";
 import ProjectGallery from "./ProjectGallery";
 import "./ProjectCard.scss";
+import "swiper/css";
 import "swiper/css/pagination";
 
 const serverBase = config.server_url.replace("/api", "");
@@ -11,6 +14,16 @@ function mediaUrl(path: string): string {
   if (!path) return "";
   if (path.startsWith("http")) return path.split("?")[0];
   return `${serverBase}${path.split("?")[0]}`;
+}
+
+function useIsMobile(breakpoint = 992) {
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < breakpoint);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, [breakpoint]);
+  return isMobile;
 }
 
 interface ProjectCardProps {
@@ -36,6 +49,7 @@ const ProjectCard = ({
 }: ProjectCardProps) => {
   const [images, setImages] = useState<ProjectImage[]>([]);
   const [show, setShow] = useState(false);
+  const isMobile = useIsMobile();
 
   const fetchImages = useCallback(async () => {
     try {
@@ -52,21 +66,41 @@ const ProjectCard = ({
     fetchImages();
   }, [fetchImages]);
 
+  const slideImages: ProjectImage[] =
+    images.length > 0 ? images : [{ id: 0, image: thumb, caption: "" }];
+
   return (
     <>
       <div className="project-card">
-        <div className="project-card-poster" onClick={() => setShow(true)}>
-          <img src={mediaUrl(thumb)} alt={title} />
-          {projectTags.length > 0 && (
-            <div className="project-card-overlay">
-              <div className="project-card-genre-tags">
-                {projectTags.map((t) => (
-                  <span key={t.id} className="project-genre-tag">{t.title}</span>
-                ))}
+        {isMobile ? (
+          <div className="project-card-poster mobile-gallery">
+            <Swiper
+              modules={[Pagination]}
+              pagination={{ clickable: true }}
+              loop={slideImages.length > 1}
+              className="card-gallery-swiper"
+            >
+              {slideImages.map((img, i) => (
+                <SwiperSlide key={img.id || i}>
+                  <img src={mediaUrl(img.image)} alt={img.caption || title} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        ) : (
+          <div className="project-card-poster" onClick={() => setShow(true)}>
+            <img src={mediaUrl(thumb)} alt={title} />
+            {projectTags.length > 0 && (
+              <div className="project-card-overlay">
+                <div className="project-card-genre-tags">
+                  {projectTags.map((t) => (
+                    <span key={t.id} className="project-genre-tag">{t.title}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
         <div className="project-card-body">
           <h3 className="project-card-title">{title}</h3>
           <div className="project-card-content">
@@ -86,13 +120,15 @@ const ProjectCard = ({
             <a href={website} target="_blank" rel="noreferrer">
               <i className="fa-solid fa-arrow-up-right-from-square" /> Live demo
             </a>
-            <span onClick={() => setShow(true)}>
-              <i className="fa-solid fa-images" /> Gallery
-            </span>
+            {!isMobile && (
+              <span onClick={() => setShow(true)}>
+                <i className="fa-solid fa-images" /> Gallery
+              </span>
+            )}
           </div>
         </div>
       </div>
-      {show && (
+      {!isMobile && show && (
         <ProjectGallery
           show={show}
           onHide={() => setShow(false)}

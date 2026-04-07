@@ -20,12 +20,16 @@ const Button = styled.button`
   cursor: pointer;
   background: ${({ theme }) => theme.bg1};
   box-shadow: 1px 1px 8px -3px ${({ theme }) => theme.box_shadow};
-  z-index: 1;
+  z-index: 1001;
   transition: background 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     background: ${({ theme }) => theme.bg2};
     box-shadow: 2px 2px 14px -2px ${({ theme }) => theme.box_shadow};
+  }
+
+  @media (max-width: 992px) {
+    bottom: 76px;
   }
 `;
 

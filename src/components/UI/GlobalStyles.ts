@@ -33,6 +33,11 @@ export const GlobalStyles = createGlobalStyle`
       }
     }
     .about-facts-title { color: ${({ theme }) => theme.color1}; }
+    .bottom-nav {
+      background: ${({ theme }) => theme.bg1};
+      .bottom-nav-tab { color: ${({ theme }) => theme.text}; }
+      .bottom-nav-tab.active { color: ${({ theme }) => theme.color1}; }
+    }
     .about-fact-card {
       background-color: ${({ theme }) => theme.bg1};
       box-shadow: 0 2px 8px -2px ${({ theme }) => theme.box_shadow};
@@ -90,6 +95,6 @@ export const GlobalStyles = createGlobalStyle`
       height: 100%;
       .modal-header { border-bottom: ${({ theme }) => theme.modal_border}; }
     }
-    .carousel-caption-bottom { color: ${({ theme }) => theme.text}; }
+    .gallery-caption { color: ${({ theme }) => theme.text}; }
   }
 `;

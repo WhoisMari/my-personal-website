@@ -26,6 +26,27 @@
 			transition: transform 0.4s ease;
 		}
 
+		&.mobile-gallery {
+			cursor: default;
+
+			.card-gallery-swiper {
+				width: 100%;
+				height: 100%;
+
+				.swiper-slide {
+					height: 100%;
+
+					img {
+						transition: none;
+					}
+				}
+
+				.swiper-pagination-bullet-active {
+					background: #c57e8a;
+				}
+			}
+		}
+
 		.project-card-overlay {
 			position: absolute;
 			bottom: 0;
@@ -109,47 +130,3 @@
 	}
 }
 
-// Gallery modal styles
-.box {
-	height: 100% !important;
-	div {
-		&:nth-of-type(1) {
-			max-height: 90% !important;
-			height: 90% !important;
-			div {
-				&:nth-of-type(1) { max-height: 100% !important; height: 100% !important; }
-			}
-		}
-	}
-	.prev, .next {
-		color: #c57e8a;
-		text-decoration: none;
-		&:hover { background-color: #ffffff00; }
-	}
-	.carousel-container {
-		.carousel-item {
-			max-height: 100% !important;
-			position: relative;
-			.carousel-image {
-				object-position: top;
-				object-fit: contain !important;
-			}
-			.carousel-caption-bottom {
-				font-size: 1em;
-				font-family: 'Roboto', sans-serif;
-				bottom: -72px;
-				text-shadow: none;
-				height: 2em !important;
-				max-height: 2em !important;
-			}
-		}
-	}
-	.thumbnails {
-		.active-thumbnail { border: 3px solid #c57e8a; }
-	}
-}
-
-.fade {
-	animation-name: none;
-	&:not(.show) { opacity: 1; }
-}

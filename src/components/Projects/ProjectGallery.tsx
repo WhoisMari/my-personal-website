@@ -1,7 +1,12 @@
 import Modal from "react-bootstrap/Modal";
-import { Carousel } from "react-carousel-minimal";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import config from "../../config.json";
 import { ProjectImage } from "../../pages/projects/utils/types";
+import "./ProjectGallery.scss";
 
 const serverBase = config.server_url.replace("/api", "");
 function mediaUrl(path: string): string {
@@ -17,35 +22,30 @@ interface ProjectGalleryProps {
   title: string;
 }
 
-const ProjectGallery = ({
-  show,
-  onHide,
-  images,
-  title,
-}: ProjectGalleryProps) => {
-  const data = images.map((img) => ({
-    image: mediaUrl(img.image),
-    caption: img.caption,
-  }));
-  return (
-    <Modal size="xl" show={show} onHide={onHide} scrollable animation={false}>
-      <Modal.Header closeButton>
-        <Modal.Title>
-          <h3>{title}</h3>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Carousel
-          data={data}
-          width="100%"
-          automatic={false}
-          captionPosition="bottom"
-          dots={true}
-          slideBackgroundColor="#fbfaf9"
-        />
-      </Modal.Body>
-    </Modal>
-  );
-};
+const ProjectGallery = ({ show, onHide, images, title }: ProjectGalleryProps) => (
+  <Modal size="xl" show={show} onHide={onHide} animation={false} className="gallery-modal">
+    <Modal.Header closeButton>
+      <Modal.Title>{title}</Modal.Title>
+    </Modal.Header>
+    <Modal.Body className="gallery-modal-body">
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation
+        pagination={{ clickable: true }}
+        loop={images.length > 1}
+        className="gallery-swiper"
+      >
+        {images.map((img) => (
+          <SwiperSlide key={img.id}>
+            <div className="gallery-slide">
+              <img src={mediaUrl(img.image)} alt={img.caption || title} />
+              {img.caption && <p className="gallery-caption">{img.caption}</p>}
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </Modal.Body>
+  </Modal>
+);
 
 export default ProjectGallery;
