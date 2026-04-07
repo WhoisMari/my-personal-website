@@ -57,18 +57,18 @@ const ProjectCard = ({
       <div className="project-card">
         <div className="project-card-poster" onClick={() => setShow(true)}>
           <img src={mediaUrl(thumb)} alt={title} />
-          <div className="project-card-overlay">
-            {projectTags.length > 0 && (
+          {projectTags.length > 0 && (
+            <div className="project-card-overlay">
               <div className="project-card-genre-tags">
                 {projectTags.map((t) => (
                   <span key={t.id} className="project-genre-tag">{t.title}</span>
                 ))}
               </div>
-            )}
-            <h3 className="project-card-title">{title}</h3>
-          </div>
+            </div>
+          )}
         </div>
         <div className="project-card-body">
+          <h3 className="project-card-title">{title}</h3>
           <div className="project-card-content">
             <ReactMarkdown>{content}</ReactMarkdown>
           </div>

@@ -31,14 +31,13 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
-			padding: 52px 20px 18px;
-			background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, transparent 100%);
+			padding: 32px 14px 14px;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
 
 			.project-card-genre-tags {
 				display: flex;
 				flex-wrap: wrap;
 				gap: 5px;
-				margin-bottom: 8px;
 			}
 
 			.project-genre-tag {
@@ -50,19 +49,18 @@
 				color: #fff;
 				backdrop-filter: blur(4px);
 			}
-
-			.project-card-title {
-				color: #fff;
-				font-size: 1.15rem;
-				font-weight: 500;
-				margin: 0;
-				font-family: 'Ubuntu Mono', monospace;
-			}
 		}
 	}
 
 	.project-card-body {
 		padding: 16px 20px 20px;
+
+		.project-card-title {
+			font-size: 1.05rem;
+			font-weight: 500;
+			margin: 0 0 10px;
+			font-family: 'Ubuntu Mono', monospace;
+		}
 
 		.project-card-content {
 			font-size: 0.88rem;
@@ -82,7 +80,8 @@
 				border-radius: 20px;
 				font-size: 0.73rem;
 				font-weight: 500;
-				background: rgba(128, 128, 128, 0.15);
+				background: rgba(180, 19, 76, 0.1);
+				color: #b4134c;
 			}
 		}
 

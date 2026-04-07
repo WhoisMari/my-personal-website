@@ -39,6 +39,8 @@ export const GlobalStyles = createGlobalStyle`
         &:hover {
           box-shadow: 0 14px 36px -4px ${({ theme }) => theme.box_shadow};
         }
+        .project-card-title { color: ${({ theme }) => theme.text}; }
+        .project-stack-tag { color: ${({ theme }) => theme.color1}; }
         .project-card-actions {
           a, span {
             color: ${({ theme }) => theme.text};
