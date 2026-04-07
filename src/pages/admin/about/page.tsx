@@ -36,11 +36,11 @@ const FactActions = styled.div`
 `;
 
 const PhotoPreview = styled.img`
-  width: 160px;
-  height: 200px;
+  max-height: 260px;
   object-fit: cover;
-  object-position: center top;
-  border-radius: 8px;
+  object-position: center;
+  border: 7px solid #f9f2ef;
+  border-radius: 5px;
   display: block;
   margin-top: 8px;
 `;

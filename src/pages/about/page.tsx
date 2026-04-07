@@ -25,6 +25,7 @@ const About = () => {
       <Container>
         {aboutPost && (
           <Fragment>
+            <h1>{aboutPost.title}</h1>
             <div className="about-page-layout">
               {aboutPost.thumbnail && (
                 <div className="about-page-photo">
@@ -32,7 +33,6 @@ const About = () => {
                 </div>
               )}
               <div className="about-page-text">
-                <h1>{aboutPost.title}</h1>
                 <ReactMarkdown>{aboutPost.content}</ReactMarkdown>
               </div>
             </div>
@@ -40,7 +40,7 @@ const About = () => {
         )}
         {facts.length > 0 && (
           <section className="about-facts">
-            <h2>A few things about me</h2>
+            <h3 className="about-facts-title">A few things about me</h3>
             <div className="about-facts-grid">
               {facts.map((fact) => (
                 <div key={fact.id} className="about-fact-card">

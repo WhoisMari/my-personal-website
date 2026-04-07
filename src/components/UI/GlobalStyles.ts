@@ -32,6 +32,7 @@ export const GlobalStyles = createGlobalStyle`
         }
       }
     }
+    .about-facts-title { color: ${({ theme }) => theme.color1}; }
     .about-fact-card {
       background-color: ${({ theme }) => theme.bg1};
       box-shadow: 0 2px 8px -2px ${({ theme }) => theme.box_shadow};
