@@ -1,6 +1,9 @@
 .project-card {
 	border-radius: 12px;
 	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 	transition: transform 0.25s ease, box-shadow 0.25s ease;
 
 	&:hover {
@@ -75,6 +78,9 @@
 
 	.project-card-body {
 		padding: 16px 20px 20px;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
 
 		.project-card-title {
 			font-size: 1.05rem;
@@ -87,6 +93,7 @@
 			font-size: 0.88rem;
 			opacity: 0.75;
 			margin-bottom: 16px;
+			flex: 1;
 			p { margin: 0; }
 		}
 

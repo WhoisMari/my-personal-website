@@ -39,7 +39,7 @@ const ProjectGallery = ({ show, onHide, images, title }: ProjectGalleryProps) =>
           <SwiperSlide key={img.id}>
             <div className="gallery-slide">
               <img src={mediaUrl(img.image)} alt={img.caption || title} />
-              {img.caption && <p className="gallery-caption">{img.caption}</p>}
+              <p className="gallery-caption">{img.caption}</p>
             </div>
           </SwiperSlide>
         ))}
